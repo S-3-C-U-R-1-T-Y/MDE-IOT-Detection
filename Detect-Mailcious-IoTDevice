@@ -1,0 +1,6 @@
+DeviceInfo
+| where Timestamp > ago(180d)
+| where DeviceCategory == "IoT"
+| where (Vendor contains "Raspberry" or Vendor contains "Arduino")
+| summarize arg_max(Timestamp, *) by DeviceId
+| distinct (DeviceName), DeviceId, DeviceSubtype, Vendor, OSPlatform, OSVersion, ReportId ,Timestamp
